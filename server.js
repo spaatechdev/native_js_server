@@ -9,13 +9,15 @@ app.use(bodyParser.urlencoded({ extended: true }))
 
 app.use(bodyParser.json())
 
-app.get('/', (req, res) => {
-    res.send('This Is Home Page');
-})
-
 // Require user routes
 const userRoutes = require('./src/routes/user.routes')
 const authRoutes = require('./src/routes/auth.routes')
+const requireToken = require('./src/middlewares/AuthTokenRequired')
+
+app.get('/', requireToken, (req, res) => {
+    console.log(req.user);
+    res.send(req.user);
+})
 
 // using as middleware
 app.use('/api/v1', authRoutes)
