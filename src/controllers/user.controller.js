@@ -17,7 +17,7 @@ exports.create = function (req, res) {
     // if (req.body.constructor === Object && Object.keys(req.body).length === 0) {
     //     res.status(400).send({ error: true, message: 'Please provide all required field' });
     if (!req.body.name || !req.body.email || !req.body.phone || !req.body.password || !req.body.confirm_password) {
-        return res.status(400).send({ error: true, message: 'Please provide all required field' });
+        return res.status(400).send({ error: true, message: 'Please provide all required fields' });
     } else {
         User.findByOrCondition([{ email: req.body.email }, {phone: req.body.phone}], async function (err, user) {
             user = await user;
@@ -27,6 +27,7 @@ exports.create = function (req, res) {
                 if (req.body.password !== req.body.confirm_password) {
                     return res.status(501).send({ error: true, message: 'Passwords do not match' });
                 }
+                req.body.raw_password = req.body.password;
                 req.body.password = await bcrypt.hash(req.body.password, 8);
                 const new_user = new User(req.body);
                 User.create(new_user, function (err, user) {
