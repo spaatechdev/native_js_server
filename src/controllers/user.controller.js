@@ -33,7 +33,7 @@ exports.create = function (req, res) {
                 User.create(new_user, function (err, user) {
                     if (err)
                         res.send(err);
-                    return res.status(200).send({ error: false, message: "User added successfully!" });
+                    return res.status(200).send({ error: false, message: "Account Created successfully!" });
                 });
             }
         });

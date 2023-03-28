@@ -13,9 +13,10 @@ app.use(bodyParser.json())
 app.use(cors())
 
 // Require user routes
+const requireToken = require('./src/middlewares/AuthTokenRequired')
 const userRoutes = require('./src/routes/user.routes')
 const authRoutes = require('./src/routes/auth.routes')
-const requireToken = require('./src/middlewares/AuthTokenRequired')
+const mailRoutes = require('./src/routes/mail.routes')
 
 app.get('/', requireToken, (req, res) => {
     console.log(req.user);
@@ -24,7 +25,8 @@ app.get('/', requireToken, (req, res) => {
 
 // using as middleware
 app.use('/api/v1', authRoutes)
-app.use('/api/v1/users', userRoutes)
+app.use('/api/v1/mailer', mailRoutes)
+app.use('/api/v1/users', requireToken, userRoutes)
 
 app.listen(port, () => {
     console.log(`Server is listening on port ${port}`);
