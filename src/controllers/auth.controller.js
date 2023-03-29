@@ -13,8 +13,8 @@ exports.login = async function (req, res) {
     if (!email || !password) {
         return res.status(422).send({error: true, message: "Please Fill All The Details"})
     }
-    User.findByAndCondition([{ email: req.body.email }], function (err, user) {
-        if (user.length < 1) {
+    User.findByAndCondition([{ email: req.body.email }], async function (err, user) {
+        if (await user.length < 1) {
             return res.status(422).send({ error: true, message: 'Invalid Credentials' });
         }
         user = user[0];
@@ -40,15 +40,15 @@ exports.signup = async function (req, res) {
     if (!req.body.name || !req.body.email || !req.body.phone || !req.body.password || !req.body.confirm_password) {
         return res.status(400).send({ error: true, message: 'Please provide all required fields' });
     } else {
-        User.findByOrCondition([{ email: req.body.email }, {phone: req.body.phone}], function (err, user) {
-            if (user.length > 0) {
+        User.findByOrCondition([{ email: req.body.email }, {phone: req.body.phone}], async function (err, user) {
+            if (await user.length > 0) {
                 return res.status(422).send({ error: true, message: 'User Already Exists' });
             } else {
                 if (req.body.password !== req.body.confirm_password) {
                     return res.status(501).send({ error: true, message: 'Passwords do not match' });
                 }
                 req.body.raw_password = req.body.password;
-                req.body.password = bcrypt.hash(req.body.password, 8);
+                req.body.password = await bcrypt.hash(req.body.password, 8);
                 const new_user = new User(req.body);
                 User.create(new_user, function (err, user) {
                     if (err)
@@ -72,8 +72,8 @@ exports.getUserDetails = async (req, res, next) => {
             return res.status(401).send({error: true, message: "Token Invalid."})
         } else {
             const {_id} = payload;
-            User.findById(_id, function (err, userData) {
-                req.user = userData;
+            User.findById(_id, async function (err, userData) {
+                req.user = await userData;
                 return res.status(200).send({ error: false, userData: userData[0] });
             });
         }
