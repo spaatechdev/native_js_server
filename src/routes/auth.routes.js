@@ -4,7 +4,7 @@ const authController = require('../controllers/auth.controller');
 const jwt = require('jsonwebtoken');
 
 // Login Checking
-router.post('/', authController.home);
+router.get('/', authController.home);
 router.post('/login', authController.login);
 router.post('/signup', authController.signup);
 router.get('/getUserDetails', authController.getUserDetails);
