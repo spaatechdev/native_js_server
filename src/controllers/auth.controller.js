@@ -4,6 +4,9 @@ const jwt = require('jsonwebtoken')
 const bcrypt = require('bcrypt')
 require('dotenv').config()
 
+exports.home = async (req, res) => {
+    return res.status(200).send({error: false, message: "Connected to v1 api urls"})
+}
 
 exports.login = async function (req, res) {
     const {email, password} = req.body
@@ -32,7 +35,7 @@ exports.login = async function (req, res) {
     });
 };
 
-exports.signup = function (req, res) {
+exports.signup = async function (req, res) {
     //handles null error
     // if (req.body.constructor === Object && Object.keys(req.body).length === 0) {
     //     res.status(400).send({ error: true, message: 'Please provide all required field' });
@@ -60,7 +63,7 @@ exports.signup = function (req, res) {
     }
 };
 
-exports.getUserDetails = (req, res, next) => {
+exports.getUserDetails = async (req, res, next) => {
     const {authorization} = req.headers;
 
     if (!authorization) {

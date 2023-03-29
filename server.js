@@ -18,9 +18,12 @@ const userRoutes = require('./src/routes/user.routes')
 const authRoutes = require('./src/routes/auth.routes')
 const mailRoutes = require('./src/routes/mail.routes')
 
-app.get('/', requireToken, (req, res) => {
-    console.log(req.user);
-    res.send(req.user);
+// app.get('/', requireToken, (req, res) => {
+//     console.log(req.user);
+//     res.send(req.user);
+// })
+app.get('/', (req, res) => {
+    res.send("Server Connected");
 })
 
 // using as middleware
