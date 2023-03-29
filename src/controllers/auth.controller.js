@@ -19,12 +19,14 @@ exports.login = async function (req, res) {
             return res.status(422).send({ error: true, message: 'Invalid Credentials' });
         }
         user = user[0];
-        if (result) {
-            const token = jwt.sign({ _id: user.id }, process.env.JWT_SECRET)
-            return res.status(200).send({ error: false, message: "Logged in successfully!", token: token });
-        } else {
-            return res.status(422).send({ error: true, message: 'Invalid Credentials' });
-        }
+        bcrypt.compare(password, user.password, async (err, result) => {
+            if (result) {
+                const token = jwt.sign({ _id: user.id }, process.env.JWT_SECRET)
+                return res.status(200).send({ error: false, message: "Logged in successfully!", token: token });
+            } else {
+                return res.status(422).send({ error: true, message: 'Invalid Credentials' });
+            }
+        })
         // try {
         //     bcrypt.compare(password, user.password, async (err, result) => {
         //         if (result) {
