@@ -18,7 +18,7 @@ router.post('/signup_code_sending', (req, res) => {
                     let verificationCode = Math.floor(100000 + Math.random() * 900000)
                     userData = {name: req.body.name, email: req.body.email, phone: req.body.phone, password: req.body.password, confirm_password: req.body.confirm_password, verificationCode: verificationCode}
                     await mailController.send_mail({ email: req.body.email, code: verificationCode })
-                    res.send({error: false, message: 'Verification code sent to your email', userData: userData})
+                    return res.status(200).send({error: false, message: 'Verification code sent to your email', userData: userData})
                 } catch (err) {
                     console.log(err);
                 }
