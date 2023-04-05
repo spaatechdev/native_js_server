@@ -52,7 +52,7 @@ exports.update = function (req, res) {
     // if (req.body.constructor === Object && Object.keys(req.body).length === 0) {
     //     res.status(400).send({ error: true, message: 'Please provide all required field' });
     if (!req.body.name || !req.body.email || !req.body.phone) {
-        return res.status(400).send({ error: true, message: 'Please provide all required field' });
+        return res.status(400).send({ error: true, message: 'Please provide all required fields' });
     } else {
         User.update(req.params.id, new User(req.body), function (err, user) {
             if (err)

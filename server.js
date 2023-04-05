@@ -17,6 +17,7 @@ const requireToken = require('./src/middlewares/AuthTokenRequired')
 const userRoutes = require('./src/routes/user.routes')
 const authRoutes = require('./src/routes/auth.routes')
 const mailRoutes = require('./src/routes/mail.routes')
+const pmsRoutes = require('./src/routes/pms.routes')
 
 // app.get('/', requireToken, (req, res) => {
 //     console.log(req.user);
@@ -30,6 +31,7 @@ app.get('/', (req, res) => {
 app.use('/api/v1', authRoutes)
 app.use('/api/v1/mailer', mailRoutes)
 app.use('/api/v1/users', requireToken, userRoutes)
+app.use('/api/v1/pms', requireToken, pmsRoutes)
 
 app.listen(port, () => {
     console.log(`Server is listening on port ${port}`);
