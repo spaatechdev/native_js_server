@@ -19,7 +19,9 @@ exports.login = async function (req, res) {
         }
         user = user[0];
         try {
-            bcrypt.compare(password, user.password.replace('$2y', '$2b'), (err, result) => {
+            console.log(user.password);
+            console.log(user.password.replace('$2y', '$2b'));
+            bcrypt.compare(password, user.password.replace('$2y', '$2b'), async (err, result) => {
                 if (result) {
                     const token = jwt.sign({ _id: user.id }, process.env.JWT_SECRET)
                     return res.status(200).send({ error: false, message: "Logged in successfully!", token: token });
