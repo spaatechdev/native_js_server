@@ -19,8 +19,6 @@ exports.login = async function (req, res) {
         }
         user = user[0];
         try {
-            console.log(user.password);
-            console.log(user.password.replace('$2y', '$2b'));
             bcrypt.compare(password, user.password.replace('$2y', '$2b'), async (err, result) => {
                 if (result) {
                     const token = jwt.sign({ _id: user.id }, process.env.JWT_SECRET)
