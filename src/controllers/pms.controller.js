@@ -70,10 +70,10 @@ exports.updateSelf = function (req, res) {
         return res.status(400).send({ error: true, message: 'Please provide all required fields' });
     } else {
         let kpi_details = req.body.kpi_details;
-        let json_data = kpi_details.replace(/'/g, '"');
-        // json_data = JSON.parse(JSON.stringify(JSON.parse(json_data)))
-        json_data = JSON.parse(json_data)
-        json_data.forEach(element => {
+        // let json_data = kpi_details.replace(/'/g, '"');
+        // // json_data = JSON.parse(JSON.stringify(JSON.parse(json_data)))
+        // json_data = JSON.parse(json_data)
+        kpi_details.forEach(element => {
             Pms.updateSelfKPI(element, function (err, kpi) {
                 if (err)
                     res.send(err);
@@ -94,10 +94,10 @@ exports.updateSupervisor = function (req, res) {
         return res.status(400).send({ error: true, message: 'Please provide all required fields' });
     } else {
         let kpi_details = req.body.kpi_details;
-        let json_data = kpi_details.replace(/'/g, '"');
-        // json_data = JSON.parse(JSON.stringify(JSON.parse(json_data)))
-        json_data = JSON.parse(json_data)
-        json_data.forEach(element => {
+        // let json_data = kpi_details.replace(/'/g, '"');
+        // // json_data = JSON.parse(JSON.stringify(JSON.parse(json_data)))
+        // json_data = JSON.parse(json_data)
+        kpi_details.forEach(element => {
             Pms.updateSupervisorKPI(element, function (err, kpi) {
                 if (err)
                     res.send(err);
@@ -118,10 +118,10 @@ exports.updateReviewer = function (req, res) {
         return res.status(400).send({ error: true, message: 'Please provide all required fields' });
     } else {
         let kpi_details = req.body.kpi_details;
-        let json_data = kpi_details.replace(/'/g, '"');
-        // json_data = JSON.parse(JSON.stringify(JSON.parse(json_data)))
-        json_data = JSON.parse(json_data)
-        json_data.forEach(element => {
+        // let json_data = kpi_details.replace(/'/g, '"');
+        // // json_data = JSON.parse(JSON.stringify(JSON.parse(json_data)))
+        // json_data = JSON.parse(json_data)
+        kpi_details.forEach(element => {
             Pms.updateReviewerKPI(element, function (err, kpi) {
                 if (err)
                     res.send(err);
